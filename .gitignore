@@ -1,11 +1,18 @@
+# Ignore build files
+/build/
+/CMakeFiles/
+/CMakeCache.txt
+/*.o
+/*.obj
+/*.exe
+/*.out
+/*.app
+/*.log
 
-temario/TAD de los conjuntos mediante AVL.mp4
-temario/Árboles AVL.mp4
-temario/Colas de prioridad.mp4
-temario/Colas_de_prioridad.pdf
-temario/Implementación_Set_AVL.pdf
-temario/Montículos binarios.mp4
-temario/Montículos binarios.pdf
-temario/Repaso de árboles binarios de búsqueda.mp4
-temario/Repaso_ABB_y_costes.pdf
-temario/ÁrbolesAVL.pdf
+# Ignore IDE specific files
+/.vscode/
+/.idea/
+/*.code-workspace
+
+# Ignore temario folder
+temario/*
