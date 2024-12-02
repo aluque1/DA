@@ -4,12 +4,12 @@
  *
  *@ </answer> */
 
-#include <iostream>
-#include <fstream>
 #include <...>
+#include <fstream>
+#include <iostream>
 using namespace std;
 
-#include "..." // propios o los de las estructuras de datos de clase
+#include "..."  // propios o los de las estructuras de datos de clase
 
 /*@ <answer>
 
@@ -24,39 +24,34 @@ using namespace std;
 // ================================================================
 //@ <answer>
 
-bool resuelveCaso()
-{
+bool resuelveCaso() {
+  // leer los datos de la entrada
 
-   // leer los datos de la entrada
+  if (caso especial) return false;
 
-   if (caso especial)
-      return false;
+  // resolver el caso posiblemente llamando a otras funciones
 
-   // resolver el caso posiblemente llamando a otras funciones
+  // escribir la solución
 
-   // escribir la solución
-
-   return true;
+  return true;
 }
 
 //@ </answer>
 //  Lo que se escriba dejado de esta línea ya no forma parte de la solución.
 
-int main()
-{
-   // ajustes para que cin extraiga directamente de un fichero
+int main() {
+  // ajustes para que cin extraiga directamente de un fichero
 #ifndef DOMJUDGE
-   std::ifstream in("casos.txt");
-   auto cinbuf = std::cin.rdbuf(in.rdbuf());
+  std::ifstream in("casos.txt");
+  auto cinbuf = std::cin.rdbuf(in.rdbuf());
 #endif
 
-   while (resuelveCaso())
-      ;
+  while (resuelveCaso());
 
-      // para dejar todo como estaba al principio
+  // para dejar todo como estaba al principio
 #ifndef DOMJUDGE
-   std::cin.rdbuf(cinbuf);
-   system("PAUSE");
+  std::cin.rdbuf(cinbuf);
+  system("PAUSE");
 #endif
-   return 0;
+  return 0;
 }

@@ -15,14 +15,16 @@ struct t_count{
   int id_candidacy; // an id to know which one came first, 0..num_candidacy - 1 
   int votes;
   int seats;
-  int coeff;        // coeff = votes / (1 + seats)
 };
 
-// own comparator if caja1 is "smaller than" caja2
+// own comparator if count1 is "greater than" count2
 bool operator<(const t_count &count1, const t_count &count2) {
-  return count2.coeff < count1.coeff || 
-         (count2.seats == count1.seats && count2.votes < count1.votes) || 
-         (count2.seats == count1.seats && count2.votes == count1.votes && count2.id_candidacy < count1.id_candidacy);
+  float coeff1 = float(count1.votes) / (1 + count1.seats); 
+  float coeff2 = float(count2.votes) / (1 + count2.seats); 
+      
+  return coeff1 > coeff2 || 
+         (count2.seats == count1.seats && count1.votes > count2.votes) || 
+         (count2.seats == count1.seats && count2.votes == count1.votes && count1.id_candidacy < count2.id_candidacy);
 }
 
 /*@ <answer>
@@ -49,25 +51,34 @@ bool resuelveCaso() {
   for(int i = 0; i < num_candidacy; ++i){
     int votes;
     cin >> votes;
-    count.push({i + 1, votes, 0, (votes / 1)});
+    count.push({i, votes, 0});
+  }
+
+  if(count.empty()){ // Si la cola es vacia
+    cout << '\n';
+    return true;
   }
     
-  for (int i = 0; i < num_seats; ++i)
+  while(num_seats--)
   {
     t_count temp = count.top();
     count.pop();
-    ++temp.seats;
-    temp.coeff = temp.votes / (1 + temp.seats);
+    temp.seats += 1;
     count.push(temp);
   }
-  
-  
-  while(count.size()){ /* Asi no se imprime bien */
-    cout << count.top().seats << ' ';
+
+  // vector auxiliar para imprimir en orden de ID
+  vector<int> sol(num_candidacy);
+  for(int i = 0; i < num_candidacy; ++i){
+    t_count aux = count.top();
     count.pop();
+    sol[aux.id_candidacy] = aux.seats;
   }
-  
+
+  for(int i = 0; i < sol.size(); ++i)
+    cout << sol[i] << ' ';
   cout <<'\n';
+
   return true;
 }
 
