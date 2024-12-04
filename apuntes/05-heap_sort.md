@@ -17,7 +17,7 @@ Se utiliza una cola de prioridad en vez de un monticulo:
         colap.pop();
  }
 
- /*
+/*
     El primer for es O(N log N) ya que push tiene complejidad log N y se hace N veces donde N es el tamaño del vector.
     El segundo for tambien es O(N log N) ya que pop() tambien es log N y el tamaño de la cola va disminuyendo de N a 0. 
     Tambien tiene un coste en espacio adicional ya que usamos una cola de prioridad que tiene coste O(N) en espacio.
