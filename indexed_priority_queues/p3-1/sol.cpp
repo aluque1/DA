@@ -1,0 +1,63 @@
+/*@ <answer>
+ *
+ * Nombre y Apellidos: Alejandro Luque Villegas DA43
+ *
+ *@ </answer> */
+
+#include <fstream>
+#include <iostream>
+using namespace std;
+
+#include "IndexPQ.h"  // propios o los de las estructuras de datos de clase
+
+/*@ <answer>
+
+ Escribe aquí un comentario general sobre la solución, explicando cómo
+ se resuelve el problema y cuál es el coste de la solución, en función
+ del tamaño del problema.
+
+ @ </answer> */
+
+// ================================================================
+// Escribe el código completo de tu solución aquí debajo
+// ================================================================
+//@ <answer>
+
+bool resuelveCaso() {
+  // leer los datos de la entrada
+  int first_age, num_pairs;
+  cin >> first_age >> num_pairs;
+  if (first_age == 0 && num_pairs == 0) return false;
+
+  // resolver el caso posiblemente llamando a otras funciones
+  IndexPQ<int> pq(int, less<int>);
+  int age;
+  for(int i = 0; i < num_pairs; ++i){
+    cin >> age;
+    pq.push(age);
+  }
+
+  // escribir la solución
+
+  return true;
+}
+
+//@ </answer>
+//  Lo que se escriba dejado de esta línea ya no forma parte de la solución.
+
+int main() {
+  // ajustes para que cin extraiga directamente de un fichero
+#ifndef DOMJUDGE
+  std::ifstream in("casos.txt");
+  auto cinbuf = std::cin.rdbuf(in.rdbuf());
+#endif
+
+  while (resuelveCaso());
+
+  // para dejar todo como estaba al principio
+#ifndef DOMJUDGE
+  std::cin.rdbuf(cinbuf);
+  system("PAUSE");
+#endif
+  return 0;
+}
