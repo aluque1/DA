@@ -6,9 +6,8 @@
 
 #include <fstream>
 #include <iostream>
+#include <queue>
 using namespace std;
-
-#include "IndexPQ.h"  // propios o los de las estructuras de datos de clase
 
 /*@ <answer>
 
@@ -29,15 +28,37 @@ bool resuelveCaso() {
   cin >> first_age >> num_pairs;
   if (first_age == 0 && num_pairs == 0) return false;
 
-  // resolver el caso posiblemente llamando a otras funciones
-  IndexPQ<int> pq(int, less<int>);
+  priority_queue<int> pq_younger;
+  // El top de este heap contendra nuestra mitad
+  priority_queue<int, vector<int>, greater<int>> pq_older;
+
+  pq_older.push(first_age);
+
   int age;
-  for(int i = 0; i < num_pairs; ++i){
+  for (int i = 0; i < 2 * num_pairs; ++i) {
     cin >> age;
-    pq.push(age);
+    if (age < first_age) {
+      pq_younger.push(age);
+      // rebalanceamos si hay demasiados en menores
+      if (pq_younger.size() - pq_older.size() > 0) {
+        pq_older.push(first_age);
+        first_age = pq_younger.top();
+        pq_younger.pop();
+      }
+    } else {
+      pq_older.push(age);
+      // rebalanceamos si hay demasiados en mayores siempre va a haber uno mas
+      // que en menores
+      if (pq_older.size() - pq_younger.size() > 1) {
+        pq_younger.push(first_age);
+        first_age = pq_older.top();
+        pq_older.pop();
+      }
+    }
+    if (i % 2 == 1) cout << first_age << ' ';
   }
 
-  // escribir la solución
+  cout << '\n';
 
   return true;
 }
