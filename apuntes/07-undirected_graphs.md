@@ -101,3 +101,31 @@ public:
         }
 };
 ```
+
+## Patron de diseño para procesamiento de grafos
+
+El objetivo es separar la representacion del grafo de la solucion. Para cada problema sobre grafos que vayamos a resolver, debemos crear una clase especifica **problema**.
+
+Pongamos pcomo ejemplo que tenemos un grafo y un vertice origen *s* y qqueremos determinar con que otros vertices esta conectado *s*. Creariamos una clase **conexion.cpp** de la siguiente manera:
+
+``` cpp
+class Conexion {
+        public:
+                Conexion(Grado const &g, int s); // busca los vertices conectados a s
+                bool conectado(int v) const; // esta v conectado a s
+                int cuantos() const; // Cuantos verices estan conectados a s
+};
+
+void resuelve(Grafo cont &g, int s){
+        Conexion conex(g,s);
+        cout << "Vertices conectado a s " << s << ":";
+        for(int v = 0; v < g.V(); ++v){
+                if(v != s && conex.conectado(v))
+                        cout << " " << v;
+        }
+        cout << '\n';
+
+        if(conex.cuantos() != g.V()) cout << "no ";
+        cout << "es conexo\n";
+}
+```
