@@ -43,27 +43,30 @@ bool resuelveCaso() {
     cin >> value;
     one_five_V.push(i, value);
   }
-
+  // Mientras las colas no sean vacias
   while(!nine_V.empty() && !one_five_V.empty()) {
     int flight_hours = 0;
     int i = 0;
+    vector<int> bat9v, bat1v;
+    // Mientras queden drones o nos quedemos sin pilas
     while(!nine_V.empty() && !one_five_V.empty() && i < num_drones){
       int nine_elem_temp = nine_V.top().elem;
       int nine_prio_temp = nine_V.top().prioridad;
       int one_elem_temp = one_five_V.top().elem;
       int one_prio_temp = one_five_V.top().prioridad;
-    
-      if(one_prio_temp < nine_prio_temp){
-        flight_hours += one_prio_temp;
-        if(nine_prio_temp - one_prio_temp != 0)
-          nine_V.update(nine_elem_temp, nine_prio_temp - one_prio_temp);
-        one_five_V.pop();
-      }
-      else{
-        flight_hours += nine_prio_temp;
-        one_five_V.update(one_elem_temp, one_prio_temp - nine_prio_temp);
-        nine_V.pop();
-      }
+
+      int minimum = min(nine_prio_temp, one_prio_temp);
+
+      flight_hours += minimum;
+      nine_prio_temp -= minimum;
+      one_prio_temp -= minimum;
+
+      // Si todavia les queda carga a las pilas, las actualizamos
+      if(nine_prio_temp != 0) nine_V.update(nine_elem_temp, nine_prio_temp);
+      else nine_V.pop();
+      
+      if(one_prio_temp != 0) one_five_V.update(one_elem_temp, one_prio_temp);
+      else one_five_V.pop();
       ++i;
     }
     cout << flight_hours << ' ';
